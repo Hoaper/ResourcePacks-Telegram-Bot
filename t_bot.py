@@ -11,7 +11,7 @@ TOKEN = os.environ.get("TGM_TOKEN")
 
 bot = telebot.TeleBot(TOKEN)
 
-print(f"Connected successfully!")
+print(f"Telegram connected successfully!")
 
 @bot.message_handler(commands=['start'])
 def welcome(message):

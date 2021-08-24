@@ -1,0 +1,2 @@
+pyTelegramBotAPI==3.8.3
+discord.py==1.7.3
