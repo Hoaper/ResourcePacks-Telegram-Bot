@@ -76,7 +76,7 @@ class On_change_handler:
 			soup = BeautifulSoup(rawText, 'html.parser')
 
 			new_six_rp = soup.find_all('div', class_="recent-in-grid")[:6]
-			new_six_rp[0].contents[1].a['href']="https://pvprp.com/pack?p=1145" # testing
+			# new_six_rp[0].contents[1].a['href']="https://pvprp.com/pack?p=1145" # testing
 			if new_six_rp == self.old_six_rp:
 				# Old rps replaced by new rps
 				# => skip
