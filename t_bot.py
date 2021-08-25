@@ -1,5 +1,5 @@
 import telebot
-import os
+import os, signal
 from subprocess import Popen, PIPE
 
 TOKEN = os.environ.get("TGM_TOKEN")
@@ -7,8 +7,9 @@ secret_key = os.environ.get("TGM_KEY")
 bot = telebot.TeleBot(TOKEN)
 
 print(f"Telegram connected successfully!")
+global processes
 
-@bot.message_handler(commands=['handle'])
+@bot.message_handler(commands=['start'])
 def handle(message):
 	try:
 		msg_arg = message.text.split(" ")[1]
@@ -24,15 +25,25 @@ def handle(message):
 		bot.send_message(message.chat.id, "Auth failure")
 
 
-@bot.message_handler(commands=["print"])
+@bot.message_handler(commands=["chatID"])
+def printChatId(message):
+	chat = message.chat.id
+
+	bot.send_message(chat, chat)
+
+@bot.message_handler(commands=["stop"])
 def printChatId(message):
 
-	bot.send_message(message.chat.id, channel)
+	pid = processes[channel]
+
+	os.kill(pid, signal.SIGTERM)
+	
+	bot.send_message(message.chat.id, "Stoped")
 
 
 def handling(channel):
 	
-	Popen(['python', 't_mail.py', channel])
-
+	process = Popen(['python', 't_mail.py', channel])
+	processes[channel] = process.pid
 bot.polling()
 
