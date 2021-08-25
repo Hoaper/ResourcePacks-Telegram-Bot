@@ -2,7 +2,6 @@
 import imaplib, email, telebot, os
 
 TOKEN = os.environ.get("TGM_TOKEN")
-bot = telebot.TeleBot(TOKEN)
 
 ## CVARS
 # Global variable - channel
@@ -73,7 +72,9 @@ class Mail:
 
 							lines = []
 							photo_lines = []
-
+							
+							bot = telebot.TeleBot(TOKEN)
+							
 							for line in body_lines:
 								if line.startswith('https://pvprp.com/'):
 									lines.append(line)
