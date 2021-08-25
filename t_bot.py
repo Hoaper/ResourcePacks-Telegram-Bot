@@ -12,7 +12,7 @@ print(f"Telegram connected successfully!")
 def handle(message):
 	try:
 		msg_arg = message.text.split(" ")[1]
-		if msg_arg == secret_key
+		if msg_arg == secret_key:
 			channel = str(message.chat.id)
 			print(f'[+] {message.chat.id}')
 			bot.send_message(channel, "Handler started")
