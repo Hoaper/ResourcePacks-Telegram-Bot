@@ -47,7 +47,7 @@ class Mail:
 		
 		return email.message_from_bytes(response)
 
-	def sendPhoto(self, url):
+	def sendPhoto(self, url, bot):
 		try:
 			bot.send_photo(int(str(channel)), url)
 
@@ -84,6 +84,6 @@ class Mail:
 
 							bot.send_message(int(str(channel)), "\n".join(lines))
 							for photo_line in photo_lines:
-								self.sendPhoto(photo_line)
+								self.sendPhoto(photo_line, bot)
 							
 							del bot
