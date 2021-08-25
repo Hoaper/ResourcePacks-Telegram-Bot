@@ -8,7 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 
 print(f"Telegram connected successfully!")
 global processes
-
+processes = {}
 @bot.message_handler(commands=['start'])
 def handle(message):
 	try:
