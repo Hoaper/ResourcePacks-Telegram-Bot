@@ -19,7 +19,8 @@ def handle(message):
 		channel = str(message.chat.id)
 		print(f'[+] {message.chat.id}')
 		bot.send_message(channel, "Handler started")
-
+	
+		handled = True
 		handling(channel)
 
 
