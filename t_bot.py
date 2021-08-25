@@ -37,12 +37,11 @@ def printChatId(message):
 	try:
 		pid = processes[message.chat.id]
 
-		os.kill(pid, signal.SIGTERM)
-
-		bot.send_message(message.chat.id, "Stoped")
 	except Exception as e:
-
 		print(e)
+	
+	os.kill(pid, signal.SIGTERM)
+	bot.send_message(message.chat.id, "Stoped")
 
 def handling(channel):
 	
