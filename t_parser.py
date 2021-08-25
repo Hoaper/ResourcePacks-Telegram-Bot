@@ -70,13 +70,16 @@ class On_change_handler:
 	def checkChanges(self):
 		
 		while True:
-			# sleep(5*60)
+			sleep(5*60)
 			
 			rawText = requests.get('https://pvprp.com/').text
 			soup = BeautifulSoup(rawText, 'html.parser')
 
 			new_six_rp = soup.find_all('div', class_="recent-in-grid")[:6]
+<<<<<<< HEAD
+=======
 			# new_six_rp[0].contents[1].a['href']="https://pvprp.com/pack?p=1145" # testing
+>>>>>>> 05e03d58c37f5a9b11e469edf68bd663ab4c1be5
 			if new_six_rp == self.old_six_rp:
 				# Old rps replaced by new rps
 				# => skip
