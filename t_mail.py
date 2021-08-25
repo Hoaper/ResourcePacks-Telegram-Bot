@@ -85,4 +85,5 @@ class Mail:
 							bot.send_message(int(str(channel)), "\n".join(lines))
 							for photo_line in photo_lines:
 								self.sendPhoto(photo_line)
-			del bot
+							
+							del bot
