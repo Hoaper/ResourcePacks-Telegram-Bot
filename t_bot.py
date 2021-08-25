@@ -20,8 +20,8 @@ def handle(message):
 
 			handling(channel)
 		
-	except Exception:
-		
+	except Exception as e:
+		print(e)
 		bot.send_message(message.chat.id, "Auth failure")
 
 
@@ -37,7 +37,7 @@ def printChatId(message):
 	pid = processes[channel]
 
 	os.kill(pid, signal.SIGTERM)
-	
+
 	bot.send_message(message.chat.id, "Stoped")
 
 
