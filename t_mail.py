@@ -76,11 +76,10 @@ class Mail:
 							bot = telebot.TeleBot(TOKEN)
 							
 							for line in body_lines:
-								if line.startswith('https://pvprp.com/'):
-									lines.append(line)
-								else:
+								if "assets" in line:
 									photo_lines.append(line)
-							
+								else:
+									lines.append(line)
 
 							bot.send_message(int(str(channel)), "\n".join(lines))
 							for photo_line in photo_lines:
