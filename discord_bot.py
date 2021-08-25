@@ -1,3 +1,5 @@
+## DOESN'T WORK, BECAUSE PVPRP.COM OWNERS IS POOP
+## USE t_parser.py - he parse a web page
 import discord as ds
 from discord.ext import commands
 ## MAILING libs
