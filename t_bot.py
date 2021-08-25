@@ -1,7 +1,5 @@
 import telebot
 import os
-import t_mail
-from t_mail import channel
 from subprocess import Popen, PIPE
 
 TOKEN = os.environ.get("TGM_TOKEN")
@@ -13,31 +11,27 @@ bot = telebot.TeleBot(TOKEN)
 
 print(f"Telegram connected successfully!")
 
-@bot.message_handler(commands=['start'])
-def welcome(message):
-	if str(channel) == '':
-		channel.change(str(message.chat.id))
+handled = False
+
+@bot.message_handler(commands=['handle'])
+def handle(message):
+	if not handled:
+		channel = str(message.chat.id)
 		print(f'[+] {message.chat.id}')
 		bot.send_message(channel, "Handler started")
-	
-	else:
-		bot.send_message(message.chat.id, "Bot already handle messages from other group")
 
-
-	handling()
+		handling(channel)
 
 
 @bot.message_handler(commands=["print"])
 def printChatId(message):
 
-	print(channel)
+	bot.send_message(message.chat.id, channel)
 
 
-def handling():
+def handling(channel):
 	
-	while True:
-		handle = t_mail.Mail().returnBody()
-		print(handle)
+	Popen(['python', 't_mail.py', channel])
 
 bot.polling()
 
