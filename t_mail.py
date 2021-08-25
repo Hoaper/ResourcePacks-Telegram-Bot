@@ -1,5 +1,5 @@
 # NOT A CONFIG FILE, JUST TEMPLATES
-import imaplib, email, telebot, os
+import imaplib, email, telebot, os, sys
 
 TOKEN = os.environ.get("TGM_TOKEN")
 
@@ -11,18 +11,7 @@ m_host = "imap.gmail.com"
 m_user = os.environ.get("MAIL_LOGIN")
 m_passwd = os.environ.get("MAIL_PASSWD")
 
-class Variables:
-	def __init__(self):
-		self.channel = ''
 
-	def __str__(self):
-		return self.channel
-
-	def change(self, channel):
-		assert isinstance(channel, str)
-		self.channel = channel
-
-channel = Variables()
 
 class Mail:
 	
@@ -49,12 +38,13 @@ class Mail:
 
 	def sendPhoto(self, url, bot):
 		try:
-			bot.send_photo(int(str(channel)), url)
+			bot.send_photo(int(self.channel), url)
 
 		except Exception:
 			self.sendPhoto(url)
 
-	def __init__(self):
+	def __init__(self, channel):
+		self.channel = channel
 		while True:
 			client = self.getClient(m_host, m_user, m_passwd)
 			mail_nums = self.getUnreadMails(client)
@@ -76,6 +66,11 @@ class Mail:
 							bot = telebot.TeleBot(TOKEN)
 							
 							for line in body_lines:
+								if 'assets' in line:
+									photo_lines.append(line)
+								else:
+									lines.append(line)
+						
 								if "assets" in line:
 									photo_lines.append(line)
 								else:
@@ -86,3 +81,6 @@ class Mail:
 								self.sendPhoto(photo_line, bot)
 							
 							del bot
+
+
+hdler = Mail(sys.argv[1])
