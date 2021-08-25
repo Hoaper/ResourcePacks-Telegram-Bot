@@ -1,1 +1,1 @@
-worker: python t_parser.py
+worker: python t_bot.py
