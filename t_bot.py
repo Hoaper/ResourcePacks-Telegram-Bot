@@ -10,6 +10,7 @@ TOKEN = os.environ.get("TGM_TOKEN")
 bot = telebot.TeleBot(TOKEN)
 
 print(f"Telegram connected successfully!")
+global handled
 
 handled = False
 
