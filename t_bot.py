@@ -34,12 +34,9 @@ def printChatId(message):
 @bot.message_handler(commands=["stop"])
 def printChatId(message):
 
-	try:
-		pid = processes[message.chat.id]
+	pid = processes[message.chat.id]
+	print(pid)
 
-	except Exception as e:
-		print(e)
-	
 	os.kill(pid, signal.SIGTERM)
 	bot.send_message(message.chat.id, "Stoped")
 
