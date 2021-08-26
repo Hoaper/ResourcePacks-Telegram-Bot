@@ -12,12 +12,11 @@ def handle(message):
 		msg_arg = message.text.split(" ")[1]
 		print(processes)
 		if msg_arg == secret_key:
-			if processes[message.chat.id]:
-				channel = str(message.chat.id)
-				print(f'[+] {message.chat.id}')
-				bot.send_message(channel, "Handler started")
+			channel = str(message.chat.id)
+			print(f'[+] {message.chat.id}')
+			bot.send_message(channel, "Handler started")
 
-				handling(channel)
+			handling(channel)
 			
 
 	except Exception as e:
