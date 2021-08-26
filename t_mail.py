@@ -21,6 +21,11 @@ class Mail:
 		gmail = imaplib.IMAP4_SSL(host)
 		
 		gmail.login(user, password)
+		
+		gmail.ehlo()
+		gmail.starttls()
+		gmail.ehlo()
+
 		gmail.select('inbox')
 
 		return gmail
