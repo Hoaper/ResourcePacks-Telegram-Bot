@@ -18,7 +18,7 @@ class Mail:
 	
 	def getClient(self, host, user, password): 
 		
-		gmail = imaplib.IMAP4(host)
+		gmail = imaplib.IMAP4_SSL(host)
 		
 		gmail.login(user, password)
 
