@@ -9,8 +9,7 @@ secret_key = os.environ.get("TGM_KEY")
 @bot.message_handler(commands=['start'])
 def handle(message):
 	try:
-		print(message.from_user.id)
-		if message.from_user.id == 123:
+		if message.from_user.id == 1911939737:
 			channel = str(message.chat.id)
 			print(f'[+] {message.chat.id}')
 			bot.send_message(channel, "Handler started")
