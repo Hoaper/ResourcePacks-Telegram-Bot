@@ -48,8 +48,8 @@ class Mail:
 
 	def __init__(self, channel):
 		self.channel = channel
+		client = self.getClient(m_host, m_user, m_passwd)
 		while True:
-			client = self.getClient(m_host, m_user, m_passwd)
 			mail_nums = self.getUnreadMails(client)
 			for mail_num in mail_nums:
 				msg = self.getMail(client, mail_num)
