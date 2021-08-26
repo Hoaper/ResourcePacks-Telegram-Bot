@@ -18,13 +18,9 @@ class Mail:
 	
 	def getClient(self, host, user, password): 
 		
-		gmail = imaplib.IMAP4_SSL(host)
+		gmail = imaplib.IMAP4(host)
 		
 		gmail.login(user, password)
-		
-		gmail.ehlo()
-		gmail.starttls()
-		gmail.ehlo()
 
 		gmail.select('inbox')
 
