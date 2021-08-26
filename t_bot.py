@@ -9,8 +9,6 @@ secret_key = os.environ.get("TGM_KEY")
 @bot.message_handler(commands=['start'])
 def handle(message):
 	try:
-		msg_arg = message.text.split(" ")[1]
-		print(processes)
 		print(message.from_user.id)
 		if message.from_user.id == 123:
 			channel = str(message.chat.id)
