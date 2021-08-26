@@ -1,6 +1,0 @@
-clear
-export MAIL_LOGIN=tonickalpha@gmail.com
-export MAIL_PASSWD=pwofujwrxtbqxfux
-export TGM_KEY=handler009
-export TGM_TOKEN=1970961128:AAGVmQxEP3x6uqH1wOM5l8NJcvSNns7pds0
-python t_start.py
