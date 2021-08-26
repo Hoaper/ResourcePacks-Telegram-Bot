@@ -11,7 +11,8 @@ def handle(message):
 	try:
 		msg_arg = message.text.split(" ")[1]
 		print(processes)
-		if msg_arg == secret_key:
+		print(message.from_user.id)
+		if message.from_user.id == 123:
 			channel = str(message.chat.id)
 			print(f'[+] {message.chat.id}')
 			bot.send_message(channel, "Handler started")
