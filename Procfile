@@ -1,1 +1,1 @@
-worker: python t_bot.py
+worker: python t_start.py

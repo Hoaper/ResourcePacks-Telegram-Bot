@@ -3,16 +3,14 @@ import os, signal
 from subprocess import Popen, PIPE
 
 TOKEN = os.environ.get("TGM_TOKEN")
-secret_key = os.environ.get("TGM_KEY")
 bot = telebot.TeleBot(TOKEN)
+secret_key = os.environ.get("TGM_KEY")
 
-print(f"Telegram connected successfully!")
-global processes
-processes = {}
 @bot.message_handler(commands=['start'])
 def handle(message):
 	try:
 		msg_arg = message.text.split(" ")[1]
+		print(processes)
 		if msg_arg == secret_key:
 			channel = str(message.chat.id)
 			print(f'[+] {message.chat.id}')
@@ -32,7 +30,7 @@ def printChatId(message):
 	bot.send_message(chat, chat)
 
 @bot.message_handler(commands=["stop"])
-def printChatId(message):
+def stop(message):
 
 	try:
 		pid = processes[str(message.chat.id)]
@@ -48,5 +46,26 @@ def handling(channel):
 	
 	process = Popen(['python', 't_mail.py', channel])
 	processes[channel] = process.pid
-bot.polling()
+
+def sendMessage(channel, text):
+
+	bot.send_message(channel, text)
+
+def sendPhoto(channel, photo):
+
+	try:
+
+		bot.send_photo(int(channel), photo)
+	except Exception:
+
+		sendPhoto(photo)
+
+
+def start():
+
+	print(f"Telegram connected successfully!")
+	global processes
+	processes = {}
+
+	bot.polling()
 

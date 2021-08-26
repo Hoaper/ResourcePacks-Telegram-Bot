@@ -1,5 +1,6 @@
 # NOT A CONFIG FILE, JUST TEMPLATES
 import imaplib, email, telebot, os, sys
+from t_bot import sendMessage, sendPhoto
 
 TOKEN = os.environ.get("TGM_TOKEN")
 
@@ -36,12 +37,13 @@ class Mail:
 		
 		return email.message_from_bytes(response)
 
-	def sendPhoto(self, url, bot):
-		try:
-			bot.send_photo(int(self.channel), url)
+	def sendPhoto(self, url):
+		
+		sendPhoto(self.channel, url)
 
-		except Exception:
-			self.sendPhoto(url)
+	def sendMessage(self, url):
+		
+		sendMessage(self.channel, "\n".join(url))
 
 	def __init__(self, channel):
 		self.channel = channel
@@ -63,19 +65,17 @@ class Mail:
 							lines = []
 							photo_lines = []
 							
-							bot = telebot.TeleBot(TOKEN)
-							
 							for line in body_lines:
 								if 'assets' in line:
 									photo_lines.append(line)
 								else:
 									lines.append(line)
 
-							bot.send_message(int(str(channel)), "\n".join(lines))
-							for photo_line in photo_lines:
-								self.sendPhoto(photo_line, bot)
+							self.sendMessage(lines)
 							
-							del bot
+							for photo_line in photo_lines:
+								self.sendPhoto(photo_line)
+							
 
 
 hdler = Mail(sys.argv[1])
