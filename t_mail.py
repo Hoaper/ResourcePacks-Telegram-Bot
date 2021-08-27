@@ -50,33 +50,35 @@ class Mail:
 		self.channel = channel
 		client = self.getClient(m_host, m_user, m_passwd)
 		while True:
-			mail_nums = self.getUnreadMails(client)
-			for mail_num in mail_nums:
-				msg = self.getMail(client, mail_num)
-				subject = msg.get("Subject")
-				if subject == "resourcepack":
-					for part in msg.walk():
+			try:
+				mail_nums = self.getUnreadMails(client)
+				for mail_num in mail_nums:
+					msg = self.getMail(client, mail_num)
+					subject = msg.get("Subject")
+					if subject == "resourcepack":
+						for part in msg.walk():
 
-						content_type = part.get_content_type()
-						if content_type == "text/plain":
-							body_lines = part.as_string().split("\n")
-							breakline = body_lines.index('')
-							body_lines = body_lines[breakline + 1:]
+							content_type = part.get_content_type()
+							if content_type == "text/plain":
+								body_lines = part.as_string().split("\n")
+								breakline = body_lines.index('')
+								body_lines = body_lines[breakline + 1:]
 
-							lines = []
-							photo_lines = []
-							
-							for line in body_lines:
-								if 'assets' in line:
-									photo_lines.append(line)
-								else:
-									lines.append(line)
+								lines = []
+								photo_lines = []
 
-							self.sendMessage(lines)
-							
-							for photo_line in photo_lines:
-								self.sendPhoto(photo_line)
-							
+								for line in body_lines:
+									if 'assets' in line:
+										photo_lines.append(line)
+									else:
+										lines.append(line)
+
+								self.sendMessage(lines)
+
+								for photo_line in photo_lines:
+									self.sendPhoto(photo_line)
+			except imaplib.abort:
+				client = self.getClient(m_host, m_user, m_passwd)
 
 
 hdler = Mail(sys.argv[1])
