@@ -1,1 +1,1 @@
-worker: python t_start.py
+worker: python t_parser.py
