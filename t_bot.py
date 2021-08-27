@@ -66,5 +66,5 @@ def start():
 	global processes
 	processes = {}
 
-	bot.polling()
+	bot.polling(timeout=0)
 
