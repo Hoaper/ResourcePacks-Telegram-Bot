@@ -1,23 +1,10 @@
 # NOT A CONFIG FILE, JUST TEMPLATES
-import imaplib, email, telebot, os, sys
-from t_bot import sendMessage, sendPhoto
-
-TOKEN = os.environ.get("TGM_TOKEN")
-
-## CVARS
-# Global variable - channel
-
-# GMAIL CVARS
-m_host = "imap.gmail.com"
-m_user = os.environ.get("MAIL_LOGIN")
-m_passwd = os.environ.get("MAIL_PASSWD")
-
-
 
 class Mail:
 	
 	def getClient(self, host, user, password): 
-		
+		import imaplib
+
 		gmail = imaplib.IMAP4_SSL(host)
 		
 		gmail.login(user, password)
@@ -28,25 +15,47 @@ class Mail:
 
 	def getUnreadMails(self, client):
 
-		result, data = client.uid('search', None, "UNSEEN")
+		_, data = client.uid('search', None, "UNSEEN")
 		return data[0].split()
 
 	def getMail(self, client, number: str):
 
-		status, response = client.uid('fetch', number, '(RFC822)')
+		import email
+
+		_, response = client.uid('fetch', number, '(RFC822)')
 		response = response[0][1]
 		
 		return email.message_from_bytes(response)
 
 	def sendPhoto(self, url):
-		
-		sendPhoto(self.channel, url)
+		while True:
+			try:
+
+				self.bot.send_photo(int(self.channel), url)
+			
+			except Exception:
+				pass
+
+			else:
+				break
 
 	def sendMessage(self, url):
 		
-		sendMessage(self.channel, "\n".join(url))
+		self.bot.send_message(self.channel, "\n".join(url))
 
-	def __init__(self, channel):
+	def __init__(self, channel, bot):
+
+		import os
+		self.bot = bot
+
+		## CVARS
+		# Global variable - channel
+
+		# GMAIL CVARS
+		m_host = "imap.gmail.com"
+		m_user = os.environ.get("MAIL_LOGIN")
+		m_passwd = os.environ.get("MAIL_PASSWD")
+
 		self.channel = channel
 		client = self.getClient(m_host, m_user, m_passwd)
 		while True:
@@ -77,8 +86,6 @@ class Mail:
 
 								for photo_line in photo_lines:
 									self.sendPhoto(photo_line)
-			except imaplib.abort:
+			except Exception:
+				print("error")
 				client = self.getClient(m_host, m_user, m_passwd)
-
-
-hdler = Mail(sys.argv[1])

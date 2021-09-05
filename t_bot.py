@@ -1,10 +1,10 @@
 import telebot
 import os, signal
-from subprocess import Popen, PIPE
+import asyncio
+from t_mail import Mail
 
 TOKEN = os.environ.get("TGM_TOKEN")
 bot = telebot.TeleBot(TOKEN)
-secret_key = os.environ.get("TGM_KEY")
 
 @bot.message_handler(commands=['start'])
 def handle(message):
@@ -14,7 +14,7 @@ def handle(message):
 			print(f'[+] {message.chat.id}')
 			bot.send_message(channel, "Handler started")
 
-			handling(channel)
+			start(channel)
 			
 
 	except Exception as e:
@@ -22,49 +22,10 @@ def handle(message):
 		bot.send_message(message.chat.id, "Auth failure")
 
 
-@bot.message_handler(commands=["chatID"])
-def printChatId(message):
-	chat = message.chat.id
-
-	bot.send_message(chat, chat)
-
-@bot.message_handler(commands=["stop"])
-def stop(message):
-
-	try:
-		pid = processes[str(message.chat.id)]
-
-		os.kill(pid, signal.SIGTERM)
-		bot.send_message(message.chat.id, "Stoped")
-
-	except Exception as e:
-
-		print(e)
-
-def handling(channel):
-	
-	process = Popen(['python', 't_mail.py', channel])
-	processes[channel] = process.pid
-
-def sendMessage(channel, text):
-
-	bot.send_message(channel, text)
-
-def sendPhoto(channel, photo):
-
-	try:
-
-		bot.send_photo(int(channel), photo)
-	except Exception:
-
-		sendPhoto(photo)
-
-
-def start():
+def start(chn):
 
 	print(f"Telegram connected successfully!")
-	global processes
-	processes = {}
+	Mail(chn, bot)
 
-	bot.polling(timeout=0)
+bot.polling(timeout=0)
 
