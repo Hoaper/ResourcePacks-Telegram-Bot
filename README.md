@@ -25,3 +25,7 @@ type: /start</p>
 
 <h1>Please send me feedbacks to improve bot</h1>
 <p>Me should to work more with this project (he (probably) has a few bugs)
+
+ 
+##COPYRIGHTS: use it only for personal purpose
+  
