@@ -88,5 +88,5 @@ class Mail:
 								for photo_line in photo_lines:
 									self.sendPhoto(photo_line)
 			except Exception as e:
-				print(f"{ERROR}: {e}")
+				print(f"ERROR: {e}")
 				client = self.getClient(m_host, m_user, m_passwd)
