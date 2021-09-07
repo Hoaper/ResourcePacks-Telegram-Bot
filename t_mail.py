@@ -59,7 +59,7 @@ class Mail:
 		self.channel = channel
 		client = self.getClient(m_host, m_user, m_passwd)
 		while True:
-			try:
+			if 1==1:
 				mail_nums = self.getUnreadMails(client)
 				for mail_num in mail_nums:
 					msg = self.getMail(client, mail_num)
@@ -86,6 +86,6 @@ class Mail:
 
 								for photo_line in photo_lines:
 									self.sendPhoto(photo_line)
-			except Exception as e:
+			else:
 				print(f"ERROR: {e}")
 				client = self.getClient(m_host, m_user, m_passwd)
