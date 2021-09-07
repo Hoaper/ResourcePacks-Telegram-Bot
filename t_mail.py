@@ -15,7 +15,8 @@ class Mail:
 
 	def getUnreadMails(self, client):
 
-		_, data = client.uid('search', None, "UNSEEN")
+		sts, data = client.uid('search', None, "UNSEEN")
+		print(f'{sts} -> {data}')
 		return data[0].split()
 
 	def getMail(self, client, number: str):
@@ -61,7 +62,6 @@ class Mail:
 		while True:
 			try:
 				mail_nums = self.getUnreadMails(client)
-				print(mail_nums)
 				for mail_num in mail_nums:
 					msg = self.getMail(client, mail_num)
 					subject = msg.get("Subject")
