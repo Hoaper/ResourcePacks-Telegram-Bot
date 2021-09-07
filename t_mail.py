@@ -23,7 +23,7 @@ class Mail:
 		import email
 
 		_, response = client.uid('fetch', number, '(RFC822)')
-		response = response[0][1]
+		response = response[0]
 		
 		return email.message_from_bytes(response)
 
