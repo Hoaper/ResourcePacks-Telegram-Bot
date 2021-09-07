@@ -60,6 +60,7 @@ class Mail:
 		client = self.getClient(m_host, m_user, m_passwd)
 		while True:
 			try:
+				print("cycle")
 				mail_nums = self.getUnreadMails(client)
 				for mail_num in mail_nums:
 					msg = self.getMail(client, mail_num)
