@@ -27,5 +27,5 @@ type: /start</p>
 <p>Me should to work more with this project (he (probably) has a few bugs)
 
  
-##COPYRIGHTS: use it only for personal purpose
+## COPYRIGHTS: use it only in personal purpose
   
