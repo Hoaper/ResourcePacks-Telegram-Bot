@@ -15,7 +15,7 @@ class Mail:
 
 	def getUnreadMails(self, client):
 
-		sts, data = client.uid('search', None, "UNSEEN")
+		sts, data = client.search(None, 'INBOX', '(UNSEEN)')
 		print(f'{sts} -> {data}')
 		return data[0].split()
 
