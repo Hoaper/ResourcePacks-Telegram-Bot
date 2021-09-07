@@ -8,7 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def handle(message):
-	if 1==1:
+	try:
 		if message.from_user.id == 1911939737:
 			channel = str(message.chat.id)
 			print(f'[+] {message.chat.id}')
@@ -17,7 +17,7 @@ def handle(message):
 			start(channel)
 			
 
-	else:
+	except Exception as e:
 		print(e)
 		bot.send_message(message.chat.id, "Auth failure")
 
