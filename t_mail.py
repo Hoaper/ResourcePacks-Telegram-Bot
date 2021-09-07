@@ -9,13 +9,12 @@ class Mail:
 		
 		gmail.login(user, password)
 
-		gmail.select('inbox')
-
 		return gmail
 
 	def getUnreadMails(self, client):
 
-		sts, data = client.search(None, 'INBOX', '(UNSEEN)')
+		client.select("INBOX")
+		sts, data = client.search(None, 'ALL', '(UNSEEN)')
 		print(f'{sts} -> {data}')
 		return data[0].split()
 
