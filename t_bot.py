@@ -26,6 +26,8 @@ def start(chn):
 
 	print(f"Telegram connected successfully!")
 	Mail(chn, bot)
-
-bot.polling(timeout=0)
-
+try:
+	bot.polling(timeout=0)
+except Exception as e:
+	print(e)
+	print("ERROR")
